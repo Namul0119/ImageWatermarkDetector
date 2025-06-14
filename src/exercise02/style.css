@@ -1,0 +1,105 @@
+.button-container > Button {
+    -fx-background-color: #00264B;   /* 남색 */
+    -fx-text-fill: white;            /* 글씨 흰색 */
+    -fx-font-weight: bold;           /* 글씨 굵게 */
+}
+
+.button-container .combo-box {
+    -fx-background-color: #00264B; /* 남색 배경 */
+    -fx-text-fill: white;          /* 글씨 흰색 */
+    -fx-font-weight: bold;
+}
+
+.combo-box .list-cell {
+    -fx-text-fill: white; /* 드롭다운 리스트 아이템 텍스트 색 */
+	-fx-background-color: #00264B;
+}
+
+.button-container .slider .track {
+    -fx-background-color: #00264B; /* 슬라이더 바 배경 (약간 어두운 남색) */
+}
+
+.button-container .slider .thumb {
+    -fx-background-color: #b0b0b0; /* 슬라이더 조절점 색 */
+}
+
+.split-pane-divider {
+    -fx-background-color: rgba(132, 255, 255, 0.6);
+	-fx-pref-width: 0.8px;   /* 수직 구분선 너비 (두께) */
+}
+
+.image-view.selected-border {
+    -fx-border-color: #84FFFF;
+    -fx-border-width: 3;
+	-fx-border-style: solid;
+	-fx-border-insets: 0;
+	-fx-border-radius: 5;
+	-fx-effect: dropshadow(gaussian, #84FFFF, 5, 0.5, 0, 0);
+}
+
+.chart-legend-item,
+.chart-legend-item-symbol,
+.chart-title {
+    -fx-text-fill: #84FFFF;   /* 글씨 흰색으로 변경 */
+}
+
+.chart-legend{
+	-fx-background-color: #1164A3;  /* 남색 */
+}
+
+.chart-legend-item{
+	-fx-background-color: transparent;
+	-fx-text-fill: white;
+}
+
+.chart-pie-label {
+    -fx-fill: #84FFFF;  /* 텍스트 색상 */
+    -fx-font-weight: bold; /* 굵게 (선택) */
+}
+
+.custom-chart .chart-axis .axis-label{
+	-fx-text-fill: #84FFFF;
+}
+
+.custom-chart .chart-axis .tick-label{
+	-fx-text-fill: #84FFFF;
+}
+
+/* 축 제목 색상 */
+.chart-axis .axis-label {
+    -fx-text-fill: #84FFFF;
+}
+
+/* 눈금 숫자 색상 */
+.chart-axis .tick-label {
+    -fx-text-fill: #84FFFF;
+}
+
+.custom-chart .chart-plot-background {
+	-fx-background-color: #b0b0b0;
+}
+
+.custom-chart .chart-horizontal-grid-lines,
+.custom-chart .chart-vertical-grid-lines {
+    -fx-stroke: #84FFFF; /* 조금 더 어두운 연 회색 */
+}
+
+.chart-series-line.series0,
+.chart-series-line.default-color0 {
+    -fx-stroke: #84FFFF !important;
+}
+
+.chart-series-line.series1,
+.chart-series-line.default-color1 {
+    -fx-stroke: #00FF00 !important;
+}
+
+.chart-line-symbol.series0,
+.chart-line-symbol.default-color0 {
+    -fx-background-color: #84FFFF, white !important;
+}
+
+.chart-line-symbol.series1,
+.chart-line-symbol.default-color1 {
+    -fx-background-color: #00264B, white !important;
+}

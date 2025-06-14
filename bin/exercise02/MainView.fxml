@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="exercise02.ImageWatermarkDetector" 
+			prefHeight="600.0" prefWidth="1000.0"
+			style="-fx-border-color: #84FFFF; -fx-border-width: 5px;">
+
+	<SplitPane fx:id="splitPane" styleClass="split-pane" orientation="HORIZONTAL" dividerPositions="0.2, 0.75" 
+			   AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0"
+			   AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" >
+			   
+	      <VBox fx:id="buttonVBox" prefWidth="150" spacing="5" styleClass="button-container" style="-fx-background-color: black;" >
+	      	 <padding>
+		       	  <Insets top="30" left="10" right="10" bottom="10" />
+		     </padding>
+	         <children>
+	            <ComboBox fx:id="analysisComboBox" onAction="#onAnalysisSelected" prefWidth="120.0" promptText="세부 분석툴" />
+	            <Label text="밝기" style="-fx-text-fill: white; -fx-font-weight: bold;"/>
+	            <Slider fx:id="brightnessSlider" prefWidth="120.0"/>
+	            <Label text="대조" style="-fx-text-fill: white; -fx-font-weight: bold;"/>
+	            <Slider fx:id="contrastSlider" prefWidth="120.0"/>
+	            <Label text="차분 임계값" style="-fx-text-fill: white; -fx-font-weight: bold;"/>
+	            <Slider fx:id="differenceThresholdSlider" min="0" max="1" value="0.1" blockIncrement="0.01" prefWidth="200" />
+	            <Label text="차분+엣지 합성" style="-fx-text-fill: white; -fx-font-weight: bold;"/>
+	            <Slider fx:id="combinedThresholdSlider" min="0" max="0.5" value="0.1" blockIncrement="0.01" />
+	            <Button fx:id="edgeButton" text="엣지 검출" />
+	            
+	            <HBox styleClass="button-container" style="-fx-background-color: black;" spacing="5" alignment="CENTER_LEFT">
+			        <Button fx:id="prewittEdgeBtn" text="Prewitt 엣지" />
+			        <Button fx:id="robertsEdgeBtn" text="Roberts 엣지" />
+			        <Button fx:id="sobelEdgeBtn" text="Sobel 엣지" />
+		    	</HBox>
+	            
+	            <Button fx:id="grayButton" text="흑백 변환" />
+	            <Button fx:id="colorFilterButton" text="컬러 필터" />
+	            <Button fx:id="neiEdgeButton" text="neighborEdge" />
+	            <Button fx:id="inverseButton" text="inverse 필터" />
+	            <Button fx:id="smoothButton" text="스무씽" />
+	            <Button fx:id="sharpButton" text="샤프닝" />
+	            <Button fx:id="fourierButton" text="푸리에 변환" />
+	            <Label text="원본 이미지" style="-fx-text-fill: #84FFFF;"/>
+	            <ImageView fx:id="previewImageView" fitHeight="100.0" fitWidth="120.0" preserveRatio="true" />
+	            <Label text="변화 마스크" style="-fx-text-fill: #84FFFF;"/>
+	            <ImageView fx:id="maskImageView" fitWidth="200" fitHeight="200" preserveRatio="true" />
+	         </children>
+	      </VBox>
+	      
+	      <GridPane hgap="10" vgap="10" style="-fx-background-color: black;" 
+	      			alignment="CENTER" prefWidth="800" prefHeight="600" >
+	        <columnConstraints>
+	        	<ColumnConstraints percentWidth="50"/>
+	        	<ColumnConstraints percentWidth="50"/>
+	        </columnConstraints>
+	        <rowConstraints>
+	        	<RowConstraints percentHeight="50"/>
+	        	<RowConstraints percentHeight="50"/>
+	        </rowConstraints>
+	        <children>
+	        	<ImageView fx:id="imageView00" preserveRatio="false" fitWidth="400" fitHeight="360" GridPane.columnIndex="0" GridPane.rowIndex="0" styleClass="image-view"/>
+           		<ImageView fx:id="imageView01" preserveRatio="false" fitWidth="400" fitHeight="360" GridPane.columnIndex="1" GridPane.rowIndex="0" styleClass="image-view"/>
+          		<ImageView fx:id="imageView10" preserveRatio="false" fitWidth="400" fitHeight="360" GridPane.columnIndex="0" GridPane.rowIndex="1" styleClass="image-view"/>
+           		<ImageView fx:id="imageView11" preserveRatio="false" fitWidth="400" fitHeight="360" GridPane.columnIndex="1" GridPane.rowIndex="1" styleClass="image-view"/>
+	        </children>
+	      </GridPane>
+	       
+		<VBox spacing="10.0" style="-fx-background-color: black" prefWidth="200">
+			<BarChart fx:id="histogramChart" prefHeight="180.0" VBox.vgrow="ALWAYS" styleClass="custom-chart histogram-chart"> 
+				<xAxis>
+					<CategoryAxis label="밝기"/>
+	          	</xAxis>
+	          	<yAxis>
+					<NumberAxis label="픽셀 수"/>
+	          	</yAxis>
+	        </BarChart>	
+	        <PieChart fx:id="diffChart" prefHeight="180.0" VBox.vgrow="ALWAYS" styleClass="custom-chart diff-chart"/>
+	        <LineChart fx:id="noiseChart" prefHeight="180.0" VBox.vgrow="ALWAYS" styleClass="custom-chart noise-chart">
+	        	<xAxis>
+					<NumberAxis label="주파수"/>
+	          	</xAxis>
+	          	<yAxis>
+					<NumberAxis label="세기"/>
+	          	</yAxis>
+	        </LineChart>
+	        <Button fx:id="loadImageButton" text="이미지 불러오기" onAction="#onLoadImage" style="-fx-background-color: #84FFFF;" />
+		    
+		 </VBox>
+	</SplitPane>
+</AnchorPane>
